@@ -212,9 +212,12 @@ import axios from 'axios';
 import { FeedState, Post, Comment } from '../types';
 import { addNotification } from './notificationSlice';
 
+const backendurl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
+
 export const fetchFeed = createAsyncThunk('feed/fetchFeed', async (page: number, { dispatch }) => {
   try {
-    const res = await axios.get(`/api/posts/feed?page=${page}&limit=10`);
+    const res = await axios.get(`${backendurl}/api/posts/feed?page=${page}&limit=10`);
     return res.data as { posts: Post[]; hasMore: boolean };
   } catch (err) {
     dispatch(addNotification('Failed to fetch feed'));
@@ -225,7 +228,7 @@ export const fetchFeed = createAsyncThunk('feed/fetchFeed', async (page: number,
 export const createPost = createAsyncThunk('feed/createPost', async ({ title, content, tags }: { title: string; content: string; tags: string[] }, { dispatch }) => {
   try {
     const res = await axios.post(
-      '/api/posts',
+      `${backendurl}/api/posts`,
       { title, content, tags },
       {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -242,7 +245,7 @@ export const createPost = createAsyncThunk('feed/createPost', async ({ title, co
 export const updatePost = createAsyncThunk('feed/updatePost', async ({ _id, title, content, tags }: { _id: string; title: string; content: string; tags: string[] }, { dispatch }) => {
   try {
     const res = await axios.put(
-      `/api/posts/${_id}`,
+      `${backendurl}/api/posts/${_id}`,
       { title, content, tags },
       {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -258,7 +261,7 @@ export const updatePost = createAsyncThunk('feed/updatePost', async ({ _id, titl
 
 export const deletePost = createAsyncThunk('feed/deletePost', async (id: string, { dispatch }) => {
   try {
-    await axios.delete(`/api/posts/${id}`, {
+    await axios.delete(`${backendurl}/api/posts/${id}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
     dispatch(addNotification('Post deleted successfully'));
@@ -283,7 +286,7 @@ export const addCommentOptimistic = createAsyncThunk(
     
     try {
       const res = await axios.post(
-        '/api/posts/comment',
+        `${backendurl}/api/posts/comment`,
         { postId, text, parentId },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
