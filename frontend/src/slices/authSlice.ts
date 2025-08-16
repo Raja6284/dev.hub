@@ -65,6 +65,8 @@ interface Credentials {
   password: string;
 }
 
+const backendurl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 // Initialize auth state from localStorage
 const initializeAuth = (): AuthState => {
   const token = localStorage.getItem('token');
@@ -84,7 +86,7 @@ const initializeAuth = (): AuthState => {
 
 export const login = createAsyncThunk('auth/login', async (credentials: Credentials, { dispatch }) => {
   try {
-    const res = await axios.post('/api/auth/login', credentials);
+    const res = await axios.post(`${backendurl}/api/auth/login`, credentials);
     localStorage.setItem('token', res.data.token);
     const decoded = jwtDecode<User>(res.data.token);
     dispatch(addNotification('Login successful!'));
@@ -97,7 +99,7 @@ export const login = createAsyncThunk('auth/login', async (credentials: Credenti
 
 export const signup = createAsyncThunk('auth/signup', async (credentials: { name: string } & Credentials, { dispatch }) => {
   try {
-    const res = await axios.post('/api/auth/signup', credentials);
+    const res = await axios.post(`${backendurl}/api/auth/signup`, credentials);
     localStorage.setItem('token', res.data.token);
     const decoded = jwtDecode<User>(res.data.token);
     dispatch(addNotification('Account created successfully!'));
