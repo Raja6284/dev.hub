@@ -10,7 +10,7 @@ A comprehensive platform where developers can create profiles, share knowledge, 
 - **Post Feed**: Infinite scroll with markdown support for code snippets
 - **Nested Comments**: Hierarchical comment system with optimistic updates
 - **Resource Bookmarking**: Save trending repositories with offline sync
-- **Private Chat**: Real-time messaging with typing indicators
+- **Private Chat**: Real-time messaging with online indicators
 - **Analytics Dashboard**: Track your activity and engagement
 - **Dark/Light Theme**: Toggle between themes with system preference detection
 - **Responsive Design**: Mobile-first design that works on all devices
@@ -227,8 +227,7 @@ For support, email support@devhub.com or create an issue in the repository.
 
 ## 🔗 Links
 
-- [Live Demo](https://devhub-demo.vercel.app)
-- [API Documentation](https://devhub-api.render.com/docs)
+- [Live Demo](https://dev-hub-orpin-rho.vercel.app/)
 - [Postman Collection](./postman_collection.json)
 
 ---
