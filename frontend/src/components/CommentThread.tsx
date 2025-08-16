@@ -1,28 +1,3 @@
-// import React from 'react';
-// import { Comment } from '../types';
-
-// interface Props {
-//   comment: Comment;
-//   depth?: number;
-// }
-
-// const CommentThread: React.FC<Props> = ({ comment, depth = 0 }) => {
-//   if (depth > 5) return null;
-
-//   return (
-//     <div className={`pl-${depth * 4} border-l-2 border-gray-200 mt-2`}>
-//       <p className="text-sm md:text-base">{comment.text}</p>
-//       {comment.replies.map((reply) => (
-//         <CommentThread key={reply._id} comment={reply} depth={depth + 1} />
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default CommentThread;
-
-
-
 
 
 import React, { useState } from 'react';
