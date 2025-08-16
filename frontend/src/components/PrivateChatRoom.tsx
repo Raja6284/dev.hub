@@ -32,7 +32,7 @@ interface ChatRoom {
 const PrivateChatRoom: React.FC = () => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [users, setUsers] = useState<User[]>([]);
-  const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
+  const [, setChatRooms] = useState<ChatRoom[]>([]);
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState('');
