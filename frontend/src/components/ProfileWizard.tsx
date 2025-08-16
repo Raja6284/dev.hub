@@ -12,6 +12,8 @@ interface FormData {
   bio: string;
 }
 
+const backendurl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 const ProfileWizard: React.FC = () => {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormData>();
   const [step, setStep] = useState(1);
@@ -58,7 +60,7 @@ const ProfileWizard: React.FC = () => {
     try {
       const finalData = { ...formData, ...data };
       await axios.put(
-        '/api/auth/profile',
+        `${backendurl}/api/auth/profile`,
         { ...finalData, profileStep: totalSteps },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },

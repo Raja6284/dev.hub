@@ -59,6 +59,9 @@ import axios from 'axios';
 import { CacheState, Bookmark } from '../types';
 import { addNotification } from './notificationSlice';
 
+const backendurl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
+
 export const bookmarkResource = createAsyncThunk('cache/bookmarkResource', async (resource: Bookmark['resource'], { dispatch }) => {
   if (!navigator.onLine) {
     let pending = JSON.parse(localStorage.getItem('pendingBookmarks') || '[]');
@@ -69,7 +72,7 @@ export const bookmarkResource = createAsyncThunk('cache/bookmarkResource', async
   }
   try {
     const res = await axios.post(
-      '/api/bookmarks',
+      `${backendurl}/api/bookmarks`,
       { resource },
       {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -94,7 +97,7 @@ export const syncBookmarks = createAsyncThunk('cache/syncBookmarks', async (_, {
 
 export const fetchTrending = createAsyncThunk('cache/fetchTrending', async (_, { dispatch }) => {
   try {
-    const res = await axios.get('/api/resources/trending', {
+    const res = await axios.get(`${backendurl}/api/resources/trending`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
     return res.data;
@@ -106,7 +109,7 @@ export const fetchTrending = createAsyncThunk('cache/fetchTrending', async (_, {
 
 export const fetchBookmarks = createAsyncThunk('cache/fetchBookmarks', async (_, { dispatch }) => {
   try {
-    const res = await axios.get('/api/bookmarks', {
+    const res = await axios.get(`${backendurl}/api/bookmarks`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
     return res.data as Bookmark[];

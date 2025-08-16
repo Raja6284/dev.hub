@@ -21,6 +21,7 @@ interface Step3Data {
   linkedin: string;
   website: string;
 }
+const backendurl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 type FormData = Step1Data & Step2Data & Step3Data;
 
@@ -108,7 +109,7 @@ const ImprovedProfileWizard: React.FC = () => {
     try {
       const finalData = { ...formData, ...data };
       await axios.put(
-        '/api/auth/profile',
+        `${backendurl}/api/auth/profile`,
         { 
           ...finalData, 
           skills: finalData.skills?.split(',').map(s => s.trim()).filter(s => s),

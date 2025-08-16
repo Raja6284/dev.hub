@@ -22,6 +22,9 @@ interface AnalyticsData {
   }>;
 }
 
+const backendurl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
+
 const Analytics: React.FC = () => {
   const { isDark } = useSelector((state: RootState) => state.theme);
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
@@ -30,7 +33,7 @@ const Analytics: React.FC = () => {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const response = await axios.get('/api/analytics', {
+        const response = await axios.get(`${backendurl}/api/analytics`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setAnalytics(response.data);

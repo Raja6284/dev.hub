@@ -35,6 +35,8 @@ interface UserBookmark {
   };
   createdAt: string;
 }
+const backendurl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 
 const ImprovedProfilePage: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.auth);
@@ -57,15 +59,15 @@ const ImprovedProfilePage: React.FC = () => {
       const headers = { Authorization: `Bearer ${token}` };
 
       // Fetch user profile
-      const profileRes = await axios.get('/api/auth/profile', { headers });
+      const profileRes = await axios.get(`${backendurl}/api/auth/profile`, { headers });
       setProfile(profileRes.data.user);
 
       // Fetch user posts
-      const postsRes = await axios.get(`/api/posts/user/${user?.id}`, { headers });
+      const postsRes = await axios.get(`${backendurl}/api/posts/user/${user?.id}`, { headers });
       setUserPosts(postsRes.data);
 
       // Fetch user bookmarks
-      const bookmarksRes = await axios.get('/api/bookmarks', { headers });
+      const bookmarksRes = await axios.get(`${backendurl}/api/bookmarks`, { headers });
       setUserBookmarks(bookmarksRes.data);
 
     } catch (error) {

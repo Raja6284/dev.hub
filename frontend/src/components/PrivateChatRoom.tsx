@@ -46,6 +46,8 @@ const PrivateChatRoom: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const { isDark } = useSelector((state: RootState) => state.theme);
 
+  const backendurl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
   useEffect(() => {
     const newSocket = io(import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000');
     setSocket(newSocket);
@@ -105,7 +107,7 @@ const PrivateChatRoom: React.FC = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('/api/users/search', {
+      const response = await axios.get(`${backendurl}/api/users/search`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         params: { q: searchQuery }
       });
@@ -117,7 +119,7 @@ const PrivateChatRoom: React.FC = () => {
 
   const fetchChatRooms = async () => {
     try {
-      const response = await axios.get('/api/chat/rooms', {
+      const response = await axios.get(`${backendurl}/api/chat/rooms`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setChatRooms(response.data);
@@ -128,7 +130,7 @@ const PrivateChatRoom: React.FC = () => {
 
   const fetchMessages = async (chatId: string) => {
     try {
-      const response = await axios.get(`/api/chat/messages/${chatId}`, {
+      const response = await axios.get(`${backendurl}/api/chat/messages/${chatId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setMessages(response.data);
