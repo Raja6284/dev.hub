@@ -21,14 +21,14 @@ const app: Express = express();
 const server = createServer(app);
 const io = new Server(server, { 
   cors: { 
-    origin: process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL : 'https://dev-hub-orpin-rho.vercel.app/',
+    origin: process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL : 'http://localhost:5173',
     credentials: true 
   } 
 });
 
 // Middleware
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL : 'https://dev-hub-orpin-rho.vercel.app/',
+  origin: process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL : 'http://localhost:5173',
   credentials: true
 }));
 app.use(cookieParser());
